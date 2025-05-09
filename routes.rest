@@ -1,0 +1,14 @@
+//LOCALHOST
+### Get all contacts
+GET http://localhost:3000/contacts
+
+### Get a contact by ID
+GET http://localhost:3000/contacts/681d8a383b78ef5e788e01af
+
+//RENDER DEPLOYMENT
+
+### Get all contacts
+GET https://project1-bh68.onrender.com/contacts
+
+### Get a contact by ID
+GET https://project1-bh68.onrender.com/contacts/681d8a383b78ef5e788e01af
