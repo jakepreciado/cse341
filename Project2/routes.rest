@@ -19,27 +19,25 @@ Content-Type: application/json
     "genre": "Action RPG"
 }
 
-# ### Update a contact by ID
-# PUT http://localhost:3000/contacts/6823f7bbaed84c379fb81f67 HTTP/1.1
-# Content-Type: application/json
+### Update a game by ID
+PUT http://localhost:3000/games/682d3b2ec5a05573a9c4dcf4 HTTP/1.1
+Content-Type: application/json
 
-# {
-#     "firstName": "Sam",
-#     "lastName": "Carter",
-#     "email": "samarchitects@gmail.com",
-#     "favoriteColor": "black",
-#     "birthday": "1964-08-17"
-# }
+{
+  "title": "Dark Souls: Remastered",
+  "studio": "FromSoftware",
+  "releaseDate": "2018/05/23",
+  "rating": "M",
+  "genre": "Action RPG"
+}
 
-# ### Delete a contact by ID
-# DELETE http://localhost:3000/contacts/6823f8bd28df7a722734548c HTTP/1.1
+### Delete a game by ID
+DELETE http://localhost:3000/games/682d3b2ec5a05573a9c4dcf4 HTTP/1.1
 
 
-# //RENDER DEPLOYMENT
+//RENDER DEPLOYMENT
+### Get all contacts
+GET https://project2-8ncx.onrender.com/games
 
-# ### Get all contacts
-# GET https://project1-bh68.onrender.com/contacts
-
-# ### Get a contact by ID
-# GET https://project1-bh68.onrender.com/contacts/681d8a383b78ef5e788e01af
-
+### Get a contact by ID
+GET https://project2-8ncx.onrender.com/games/682c1a42bdbd49c869865bb2
