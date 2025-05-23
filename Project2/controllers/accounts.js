@@ -69,8 +69,8 @@ const updateAccount = async (req, res) => {
     const updatedAccount = {
         username: req.body.username,
         password: req.body.password,
-        membership: req.body.membership,
         email: req.body.email,
+        membership: req.body.membership,
         startDate: req.body.startDate
     }
     const result = await mongodb
