@@ -21,7 +21,27 @@ const saveGame = (req, res, next) => {
     });
 }
 
-// If returned true, the request is valid, and will proceed to save the game to the database.
+const saveAccount = (req, res, next) => {
+    const validationRule = {
+        username: 'required|string',
+        password: 'required|string',
+        email: 'required|email',
+        membership: 'required|string',
+        startDate: 'required|date'
+    };
+    validator(req.body, validationRule, {}, (err, status) => {
+        if (!status) {
+            res.status(412).send({
+                success: false,
+                message: 'Validation failed',
+                data: err
+            });
+        } else {
+            next();
+        }
+    });
+}
 module.exports = {
-    saveGame
+    saveGame,
+    saveAccount
 };

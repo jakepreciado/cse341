@@ -1,25 +1,8 @@
 const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
 
-// const getAllGames = (req, res) => {
-//     //#swagger.tags = ['Video Games']
-//     console.log('Getting all video games...');
-//     mongodb
-//         .getDb()
-//         .db()
-//         .collection('games')
-//         .find()
-//         .toArray((err, games) => {
-//             console.log('well, you madde it this far')
-//             if (err) {
-//                 res.status(400).json({ message: err });
-//             }
-//             res.setHeader('Content-Type', 'application/json');
-//             res.status(200).json(games);
-//         });
-// };
-
 const getAllGames = async (req, res) => {
+    //#swagger.tags = ['READ (Get All)']
     try {
         const games = await mongodb
             .getDb()
@@ -35,7 +18,7 @@ const getAllGames = async (req, res) => {
 };
 
 const getGameById = async (req, res) => {
-    //#swagger.tags = ['Video Games']
+    //#swagger.tags = ['READ (Get By ID)']
     if (!ObjectId.isValid(req.params.id)) {
         return res.status(400).json('Must use valid ID to find a video game');
     }
@@ -57,7 +40,7 @@ const getGameById = async (req, res) => {
 };
 
 const createGame = async (req, res) => {
-    //#swagger.tags = ['Video Games']
+    //#swagger.tags = ['CREATE']
     const newGame = {
         title: req.body.title,
         studio: req.body.studio,
@@ -78,7 +61,7 @@ const createGame = async (req, res) => {
 }
 
 const updateGame = async (req, res) => {
-    //#swagger.tags = ['Video Games']
+    //#swagger.tags = ['UPDATE']
     if (!ObjectId.isValid(req.params.id)) {
         res.status(400).json('Must use valid ID to update a video game');
     }
@@ -104,7 +87,7 @@ const updateGame = async (req, res) => {
 }
 
 const deleteGame = async (req, res) => {
-    //#swagger.tags = ['Video Games']
+    //#swagger.tags = ['DELETE']
     if (!ObjectId.isValid(req.params.id)) {
         res.status(400).json('Must use valid ID to delete a video game');
     }

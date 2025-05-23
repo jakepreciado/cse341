@@ -8,5 +8,6 @@ router.get('/', (req, res) => {
 });
 
 router.use('/games', require('./games'));
+router.use('/accounts', require('./accounts'));
 
 module.exports = router;
