@@ -5,8 +5,9 @@ const doc = {
         title: 'Video Games & Accounts API',
         description: 'API documentation for the project',
     },
-    host: 'project2-8ncx.onrender.com',
-    schemes: ['https'],
+    // host: 'project2-8ncx.onrender.com',
+    host: 'localhost:3000',
+    schemes: ['http'],
 };
 
 const outputFile = './swagger.json';

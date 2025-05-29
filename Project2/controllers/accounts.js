@@ -48,15 +48,19 @@ const createAccount = async (req, res) => {
         membership: req.body.membership,
         startDate: req.body.startDate
     }
-    const result = await mongodb
-        .getDb()
-        .db()
-        .collection('accounts')
-        .insertOne(newAccount);
-    if (result.acknowledged) {
-        res.status(201).send('Account created successfully!');
-    } else {
-        res.status(500).json(result.error || 'Error creating account');
+    try {
+        const result = await mongodb
+            .getDb()
+            .db()
+            .collection('accounts')
+            .insertOne(newAccount);
+        if (result.acknowledged) {
+            res.status(201).send('Account created successfully!');
+        } else {
+            res.status(500).json(result.error || 'Error creating account');
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 }
 
@@ -73,16 +77,20 @@ const updateAccount = async (req, res) => {
         membership: req.body.membership,
         startDate: req.body.startDate
     }
-    const result = await mongodb
-        .getDb()
-        .db()
-        .collection('accounts')
-        .replaceOne({ _id: accountId }, updatedAccount);
-    console.log(result);
-    if (result.acknowledged) {
-        res.status(204).send('Account updated successfully!');
-    } else {
-        res.status(500).json(result.error || 'Error updating account');
+    try {
+        const result = await mongodb
+            .getDb()
+            .db()
+            .collection('accounts')
+            .replaceOne({ _id: accountId }, updatedAccount);
+        console.log(result);
+        if (result.acknowledged) {
+            res.status(200).send('Account updated successfully!');
+        } else {
+            res.status(500).json(result.error || 'Error updating account');
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 }
 
@@ -92,16 +100,20 @@ const deleteAccount = async (req, res) => {
         res.status(400).json('Must use valid ID to delete an account');
     }
     const accountId = new ObjectId(req.params.id);
-    const result = await mongodb
-        .getDb()
-        .db()
-        .collection('accounts')
-        .deleteOne({ _id: accountId });
-    console.log(result);
-    if (result.deletedCount > 0) {
-        res.status(204).send('Account successfully deleted!');
-    } else {
-        res.status(500).json(result.error || 'Error deleting account');
+    try {
+        const result = await mongodb
+            .getDb()
+            .db()
+            .collection('accounts')
+            .deleteOne({ _id: accountId });
+        console.log(result);
+        if (result.deletedCount > 0) {
+            res.status(200).send('Account successfully deleted!');
+        } else {
+            res.status(500).json(result.error || 'Error deleting account');
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 }
 

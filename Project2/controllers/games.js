@@ -48,15 +48,19 @@ const createGame = async (req, res) => {
         rating: req.body.rating,
         genre: req.body.genre,
     }
-    const result = await mongodb
-        .getDb()
-        .db()
-        .collection('games')
-        .insertOne(newGame);
-    if (result.acknowledged) {
-        res.status(201).send('Video game created successfully!');
-    } else {
-        res.status(500).json(result.error || 'Error creating video game');
+    try {
+        const result = await mongodb
+            .getDb()
+            .db()
+            .collection('games')
+            .insertOne(newGame);
+        if (result.acknowledged) {
+            res.status(201).send('Video game created successfully!');
+        } else {
+            res.status(500).json(result.error || 'Error creating video game');
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 }
 
@@ -73,16 +77,20 @@ const updateGame = async (req, res) => {
         rating: req.body.rating,
         genre: req.body.genre,
     }
-    const result = await mongodb
-        .getDb()
-        .db()
-        .collection('games')
-        .replaceOne({ _id: gameId }, updatedGame);
-    console.log(result);
-    if (result.acknowledged) {
-        res.status(204).send('Video game updated successfully!');
-    } else {
-        res.status(500).json(result.error || 'Error updating video game');
+    try {
+        const result = await mongodb
+            .getDb()
+            .db()
+            .collection('games')
+            .replaceOne({ _id: gameId }, updatedGame);
+        console.log(result);
+        if (result.acknowledged) {
+            res.status(200).send('Video game updated successfully!');
+        } else {
+            res.status(500).json(result.error || 'Error updating video game');
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 }
 
@@ -92,16 +100,20 @@ const deleteGame = async (req, res) => {
         res.status(400).json('Must use valid ID to delete a video game');
     }
     const gameId = new ObjectId(req.params.id);
-    const result = await mongodb
-        .getDb()
-        .db()
-        .collection('games')
-        .deleteOne({ _id: gameId });
-    console.log(result);
-    if (result.deletedCount > 0) {
-        res.status(204).send('Video game successfully deleted!');
-    } else {
-        res.status(500).json(result.error || 'Error deleting video game');
+    try {
+        const result = await mongodb
+            .getDb()
+            .db()
+            .collection('games')
+            .deleteOne({ _id: gameId });
+        console.log(result);
+        if (result.deletedCount > 0) {
+            res.status(200).send('Video game successfully deleted!');
+        } else {
+            res.status(500).json(result.error || 'Error deleting video game');
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 }
 
